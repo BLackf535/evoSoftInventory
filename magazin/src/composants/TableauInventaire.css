@@ -1,0 +1,68 @@
+/* src/composants/TableauInventaire.css */
+.tableau-inventaire {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+          }
+          
+          .tableau-inventaire th,
+          .tableau-inventaire td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+          }
+          
+          .tableau-inventaire th {
+            background-color: #f2f2f2;
+            color: #333;
+          }
+          
+          .tableau-inventaire tr:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+          
+          .tableau-inventaire tr:hover {
+            background-color: #eaeaea;
+          }
+          
+          .boutons {
+            margin: 20px 0;
+          }
+          
+         
+.tableau-inventaire,
+.tableau-produits {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tableau-inventaire th,
+.tableau-produits th,
+.tableau-inventaire td,
+.tableau-produits td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tableau-inventaire th,
+.tableau-produits th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.tableau-inventaire tr:nth-child(even),
+.tableau-produits tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableau-inventaire tr:hover,
+.tableau-produits tr:hover {
+  background-color: #eaeaea;
+}
+
+.boutons {
+  margin: 20px 0;
+}
+
