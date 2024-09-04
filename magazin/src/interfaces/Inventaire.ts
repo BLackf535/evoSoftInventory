@@ -5,11 +5,11 @@ export interface Produit {
             prix: number;
           }
           
-          export interface Magasin {
-            id: number;
-            nom: string;
-            adresse: string;
-          }
+    export interface Magasin {
+      id: number;
+      nom: string;
+      adresse: string;
+    }
           
           export interface Inventaire {
             date: string;
