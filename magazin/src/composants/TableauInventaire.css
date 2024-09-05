@@ -1,0 +1,106 @@
+/* src/composants/TableauInventaire.css */
+.tableau-inventaire {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+}
+
+.tableau-inventaire th,
+.tableau-inventaire td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+}
+
+.tableau-inventaire th {
+            background-color: #f2f2f2;
+            color: #333;
+}
+
+.tableau-inventaire tr:nth-child(even) {
+            background-color: #f9f9f9;
+}
+
+.tableau-inventaire tr:hover {
+            background-color: #eaeaea;
+}
+
+.boutons {
+            margin: 20px 0;
+}
+
+.modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+}
+
+.modal-contenu {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tableau-inventaire,
+.tableau-produits {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+}
+
+.tableau-inventaire th,
+.tableau-produits th,
+.tableau-inventaire td,
+.tableau-produits td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+}
+
+.tableau-inventaire th,
+.tableau-produits th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+}
+
+.tableau-inventaire tr:nth-child(even),
+.tableau-produits tr:nth-child(even) {
+            background-color: #f9f9f9;
+}
+
+.tableau-inventaire tr:hover,
+.tableau-produits tr:hover {
+            background-color: #eaeaea;
+}
+
+.boutons {
+            margin: 20px 0;
+}
+
+.modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+}
+
+.modal-contenu {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            /* Ajustez la largeur selon vos besoins */
+}
