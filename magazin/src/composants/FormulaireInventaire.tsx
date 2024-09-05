@@ -1,30 +1,30 @@
-
+// src/composants/TableauInventaire.tsx
 import React, { useEffect, useState } from 'react';
 import { magasins } from '../donnees';
 import { Inventaire } from '../interfaces/Inventaire';
-
-import './TableauInventaire.css'; 
+import { exporterEnCSV } from '../utilitaires/exporterCSV';
+import './TableauInventaire.css'; // Importer le fichier CSS
 
 const TableauInventaire: React.FC = () => {
-            // ici pour gérer les inventaires et les modals
+            // États pour gérer les inventaires et les modals
             const [inventaires, setInventaires] = useState<Inventaire[]>([]);
             const [modalInventaireOuvert, setModalInventaireOuvert] = useState<boolean>(false);
             const [modalProduitOuvert, setModalProduitOuvert] = useState<boolean>(false);
             const [modalExportationOuvert, setModalExportationOuvert] = useState<boolean>(false);
             const [modalStockOuvert, setModalStockOuvert] = useState<boolean>(false);
 
-            // ici pour gérer les informations sur les produits et les inventaires
+            // États pour gérer les informations sur les produits et les inventaires
             const [idMagasin, setIdMagasin] = useState<number>(1);
             const [idProduit, setIdProduit] = useState<number>(1);
             const [stock, setStock] = useState<number>(0);
             const [dateAjout, setDateAjout] = useState<string>(''); // Date d'ajout
             const [nouveauProduitNom, setNouveauProduitNom] = useState<string>('');
             const [nouveauProduitPrix, setNouveauProduitPrix] = useState<number>(0);
-            const [produitsListes, setProduitsListes] = useState<any[]>([]); // ici pour stocker la liste des produits
+            const [produitsListes, setProduitsListes] = useState<any[]>([]); // État pour stocker la liste des produits
             const [indexEdite, setIndexEdite] = useState<number | null>(null);
             const [nouveauStock, setNouveauStock] = useState<number>(0);
 
-            // ici pour faire le localStorage
+            // Chargement des inventaires et produits depuis le localStorage
             useEffect(() => {
                         const inventairesStockes = JSON.parse(localStorage.getItem('inventaires') || '[]');
                         setInventaires(inventairesStockes);
@@ -106,7 +106,30 @@ const TableauInventaire: React.FC = () => {
                         }
             };
 
-            
+            // Fonction pour exporter les données
+            const gererExportation = () => {
+                        const inventairesFiltrés = inventaires.filter(inventaire => {
+                                    const idMagasinInventaire = Object.keys(inventaire.stock)[0];
+                                    const dateInventaire = inventaire.date;
+                                    return (
+                                                Number(idMagasinInventaire) === idMagasin &&
+                                                dateInventaire === dateAjout
+                                    );
+                        }).map(inventaire => {
+                                    const idMagasinInventaire = Object.keys(inventaire.stock)[0];
+                                    const nomMagasin = magasins.find(m => m.id === Number(idMagasinInventaire))?.nom;
+                                    const nomProduit = produitsListes.find(p => p.id === inventaire.idProduit)?.nom;
+
+                                    return {
+                                                ...inventaire,
+                                                magasinNom: nomMagasin,
+                                                produitNom: nomProduit,
+                                    };
+                        });
+
+                        exporterEnCSV(inventairesFiltrés, `inventaires_${idMagasin}_${dateAjout}.csv`);
+                        setModalExportationOuvert(false);
+            };
 
             return (
                         <div>
@@ -144,7 +167,7 @@ const TableauInventaire: React.FC = () => {
                                                 </tbody>
                                     </table>
 
-                                    {/* le Modal pour éditer le stock */}
+                                    {/* Modal pour éditer le stock */}
                                     {modalStockOuvert && (
                                                 <div className="modal">
                                                             <div className="modal-contenu">
@@ -161,7 +184,7 @@ const TableauInventaire: React.FC = () => {
                                                 </div>
                                     )}
 
-                                    {/* ici le tableau Tableau pour lister les produits ajoutés */}
+                                    {/* Tableau pour lister les produits ajoutés */}
                                     <h2>Liste des Produits</h2>
                                     <table className="tableau-produits">
                                                 <thead>
@@ -214,7 +237,7 @@ const TableauInventaire: React.FC = () => {
                                                 <button onClick={() => setModalExportationOuvert(true)}>Exporter en CSV</button>
                                     </div>
 
-                                    {/* le Modal pour ajouter un produit */}
+                                    {/* Modal pour ajouter un produit */}
                                     {modalProduitOuvert && (
                                                 <div className="modal">
                                                             <div className="modal-contenu">
@@ -237,7 +260,7 @@ const TableauInventaire: React.FC = () => {
                                                 </div>
                                     )}
 
-                                    {/* le Modal pour ajouter un inventaire */}
+                                    {/* Modal pour ajouter un inventaire */}
                                     {modalInventaireOuvert && (
                                                 <div className="modal">
                                                             <div className="modal-contenu">
@@ -276,7 +299,7 @@ const TableauInventaire: React.FC = () => {
                                                 </div>
                                     )}
 
-                                    {/*le  Modal pour exporter les données */}
+                                    {/* Modal pour exporter les données */}
                                     {modalExportationOuvert && (
                                                 <div className="modal">
                                                             <div className="modal-contenu">
@@ -295,7 +318,7 @@ const TableauInventaire: React.FC = () => {
                                                                                     value={dateAjout}
                                                                                     onChange={(e) => setDateAjout(e.target.value)}
                                                                         />
-                                                                        
+                                                                        <button onClick={gererExportation}>Exporter</button>
                                                                         <button onClick={() => setModalExportationOuvert(false)}>Annuler</button>
                                                             </div>
                                                 </div>
